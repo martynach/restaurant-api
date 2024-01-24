@@ -21,7 +21,6 @@ public class RestaurantService : IRestaurantService
     public RestaurantService(IMapper mapper,
         RestaurantDbContext context,
         ILogger<RestaurantService> logger,
-        RestaurantSeeder seeder,
         IAuthorizationService authorizationService,
         IUserContextService userContextService)
     {
@@ -30,7 +29,6 @@ public class RestaurantService : IRestaurantService
         _logger = logger;
         _authorizationService = authorizationService;
         _userContextService = userContextService;
-        seeder.Seed();
     }
 
     public PagedResult<RestaurantDto> GetAll(RestaurantQuery query)

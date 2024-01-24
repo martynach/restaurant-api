@@ -11,11 +11,9 @@ namespace RestaurantApi3.Controllers
     {
         private readonly IAccountService _accountService;
 
-        public AccountController(IAccountService accountService, RestaurantSeeder seeder)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-            seeder.Seed();
-
         }
 
         [HttpPost("register")]

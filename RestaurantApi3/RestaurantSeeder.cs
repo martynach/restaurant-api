@@ -17,7 +17,7 @@ public class RestaurantSeeder
 
     public void Seed()
     {
-        _logger.LogInformation(AppConstants.LoggerInformationPrefix + "Start seeding database if needed.");
+        _logger.LogWarning(AppConstants.LoggerWarnPrefix + "Start seeding database if needed.");
         if (!_dbContext.Database.CanConnect())
         {
             _logger.LogWarning(AppConstants.LoggerWarnPrefix  + "Cannot connect to database");

@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -15,10 +16,19 @@ using RestaurantApi3.Dtos;
 using RestaurantApi3.Dtos.Validators;
 using RestaurantApi3.Middlewares;
 
+// https://github.com/NLog/NLog/wiki/Getting-started-with-ASP.NET-Core-6
+// Early init of NLog to allow startup and exception logging, before host is built
+// var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
 var nlog = NLog.LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+// https://github.com/NLog/NLog/wiki/Getting-started-with-ASP.NET-Core-6
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
+
 
 // Add services to the container.
 
@@ -32,7 +42,10 @@ builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 builder.Services.AddScoped<IDishService, DishService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
@@ -45,7 +58,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplicationInsightsTelemetry();
 
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Host.UseNLog();
 
 AuthenticationSettings authSettings = new AuthenticationSettings();
 builder.Configuration.GetSection("Authentication").Bind(authSettings);
@@ -137,8 +149,12 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
-//does not work
+//does not work - would work for singleton
 // app.Services.GetService<RestaurantSeeder>()!.Seed();
+
+var scope = app.Services.CreateScope();
+var dbSeeder = scope.ServiceProvider.GetRequiredService<RestaurantSeeder>();
+dbSeeder.Seed();
 
 // app.UseHttpsRedirection();
 

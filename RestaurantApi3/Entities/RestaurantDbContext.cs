@@ -60,7 +60,7 @@ public class RestaurantDbContext: DbContext
         }
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-        if (String.Equals(environment?.ToLower(), "development"))
+        if (String.Equals(environment?.ToLower(), "development") || String.Equals(environment?.ToLower(), "private"))
         {
             _logger.LogInformation($"{AppConstants.LoggerInformationPrefix} Using local POSTGRES DB");
             _logger.LogWarning($"{AppConstants.LoggerWarnPrefix} Using local POSTGRES DB");

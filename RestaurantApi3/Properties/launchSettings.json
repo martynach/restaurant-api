@@ -15,9 +15,7 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5221",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "UserFullName": "Marti",
-        "UserAge": 25
+        "ASPNETCORE_ENVIRONMENT": "Private"
       }
     }
   }
