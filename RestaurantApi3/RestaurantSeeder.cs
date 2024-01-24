@@ -96,7 +96,7 @@ public class RestaurantSeeder
             new() { Name = "User" },
             new() { Name = "Manager" },
             new() { Name = "Admin" },
-        };
+        }
 
         return roles;
     }
