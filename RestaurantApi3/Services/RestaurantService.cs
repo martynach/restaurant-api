@@ -159,5 +159,7 @@ public class RestaurantService : IRestaurantService
         restaurant.HasDelivery = updateDto.HasDelivery ?? restaurant.HasDelivery;
 
         _context.SaveChanges();
+        
+        
     }
 }
