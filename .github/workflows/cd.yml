@@ -1,0 +1,34 @@
+name: Continuous Delivery
+on:
+  push:
+    branches:
+    - main
+
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with: 
+         dotnet-version: 6.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Publish Package
+        run: dotnet publish ./RestaurantApi3/RestaurantApi3.csproj -c Release -o ${{env.DOTNET_ROOT}}/api
+
+
+  deploy-dev:
+    name: Deploy to dev
+    runs-on: ubuntu-latest
+    steps:
+
+
+      
