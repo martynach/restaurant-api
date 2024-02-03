@@ -42,13 +42,12 @@ jobs:
         uses: actions/download-artifact@v4.1.1
         with:
           name: restaurantapi-artifact
-          path: ${{env.DOTNET_ROOT}}/api
       - name: Deploy to Azure WebApp
         id: deploy-to-azure
         uses: Azure/webapps-deploy@v3.0.0
         with:
           app-name: restaurantapi-devv
-          publish-profile: ${{secrets.PUBLISH_PROFILE}}
+          publish-profile: ${{secrets.PUBLISH_PROFILE_DEV}}
 
 
       
