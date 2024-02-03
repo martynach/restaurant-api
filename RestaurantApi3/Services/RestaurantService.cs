@@ -105,7 +105,7 @@ public class RestaurantService : IRestaurantService
 
     public void DeleteRestaurant(int id)
     {
-        _logger.LogWarning(AppConstants.LoggerPrefix + $"Restaurant with id {id} DELETE action invoked.");
+        _logger.LogWarning(AppConstants.LoggerWarnPrefix + $"Restaurant with id {id} DELETE action invoked.");
 
         var restaurant = _context.Restaurants.FirstOrDefault(r => r.Id == id);
 
