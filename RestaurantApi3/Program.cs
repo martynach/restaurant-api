@@ -21,7 +21,7 @@ using RestaurantApi3.Middlewares;
 // var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
 var nlog = NLog.LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
-
+nlog.Warn(AppConstants.LoggerPrefix + "App is starting");
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -136,6 +136,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+nlog.Warn(AppConstants.LoggerPrefix + "services successfully registered");
 
 var app = builder.Build();
 
@@ -165,5 +166,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+nlog.Warn(AppConstants.LoggerPrefix + "App setup successfully");
+
 
 app.Run();

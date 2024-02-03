@@ -2,8 +2,5 @@
 
 public static class AppConstants
 {
-    public static string LoggerInformationPrefix = "[custom-information-logger] ";
-    public static string LoggerWarnPrefix = "[custom-warn-logger] ";
-    public static string LoggerErrorPrefix = "[custom-error-logger] ";
-
+    public static string LoggerPrefix = "[marti-logger] ";
 }

@@ -62,14 +62,12 @@ public class RestaurantDbContext: DbContext
 
         if (String.Equals(environment?.ToLower(), "development") || String.Equals(environment?.ToLower(), "private"))
         {
-            _logger.LogInformation($"{AppConstants.LoggerInformationPrefix} Using local POSTGRES DB");
-            _logger.LogWarning($"{AppConstants.LoggerWarnPrefix} Using local POSTGRES DB");
+            _logger.LogWarning($"{AppConstants.LoggerPrefix} Using local POSTGRES DB");
             optionsBuilder.UseNpgsql(connectionString);
         }
         else
         {
-            _logger.LogInformation($"{AppConstants.LoggerInformationPrefix} Using azure sql server");
-            _logger.LogWarning($"{AppConstants.LoggerWarnPrefix} Using azure sql server");
+            _logger.LogWarning($"{AppConstants.LoggerPrefix} Using azure sql server");
             optionsBuilder.UseSqlServer(connectionString);
         }
     }

@@ -17,26 +17,26 @@ public class RestaurantSeeder
 
     public void Seed()
     {
-        _logger.LogWarning(AppConstants.LoggerWarnPrefix + "Start seeding database if needed.");
+        _logger.LogWarning(AppConstants.LoggerPrefix + "Start seeding database if needed.");
         if (!_dbContext.Database.CanConnect())
         {
-            _logger.LogWarning(AppConstants.LoggerWarnPrefix  + "Cannot connect to database");
+            _logger.LogWarning(AppConstants.LoggerPrefix  + "Cannot connect to database");
             return;
         }
         
-        _logger.LogWarning(AppConstants.LoggerWarnPrefix + "Successfully connected to database");
+        _logger.LogWarning(AppConstants.LoggerPrefix + "Successfully connected to database");
 
         try
         {
             var pendingMigrations = _dbContext.Database.GetPendingMigrations();
             if (pendingMigrations != null && pendingMigrations.Any())
             {
-                _logger.LogWarning(AppConstants.LoggerWarnPrefix + "Performing some migrations");
+                _logger.LogWarning(AppConstants.LoggerPrefix + "Performing some migrations");
                 _dbContext.Database.Migrate();
             }
             else
             {
-                _logger.LogWarning(AppConstants.LoggerWarnPrefix + "There are no migrations to be performed");
+                _logger.LogWarning(AppConstants.LoggerPrefix + "There are no migrations to be performed");
 
             }
 
@@ -45,7 +45,7 @@ public class RestaurantSeeder
                 var roles = GetRoles();
                 _dbContext.Roles.AddRange(roles);
                 _dbContext.SaveChanges();
-                _logger.LogInformation(AppConstants.LoggerInformationPrefix + "Successfully seeded Roles in database");
+                _logger.LogWarning(AppConstants.LoggerPrefix + "Successfully seeded Roles in database");
             }
 
 
@@ -54,14 +54,17 @@ public class RestaurantSeeder
                 var restaurants = getRestaurants();
                 _dbContext.Restaurants.AddRange(restaurants);
                 _dbContext.SaveChanges();
-                _logger.LogInformation(AppConstants.LoggerInformationPrefix +
+                _logger.LogWarning(AppConstants.LoggerPrefix +
                                        "Successfully seeded Restaurants in database");
             }
+            
+            _logger.LogWarning(AppConstants.LoggerPrefix +
+                               "Successfully finished seeding");
         }
         catch (Exception e)
         {
-            _logger.LogWarning(AppConstants.LoggerWarnPrefix + "Error when seeding database: " + e.Message);
-            _logger.LogError(AppConstants.LoggerErrorPrefix + "Error when seeding database: " + e.Message, e);
+            _logger.LogWarning(AppConstants.LoggerPrefix + "Error when seeding database: " + e.Message);
+            _logger.LogError(AppConstants.LoggerPrefix + "Error when seeding database: " + e.Message, e);
             throw e;
         }
         
