@@ -34,6 +34,11 @@ public class RestaurantSeeder
                 _logger.LogWarning(AppConstants.LoggerWarnPrefix + "Performing some migrations");
                 _dbContext.Database.Migrate();
             }
+            else
+            {
+                _logger.LogWarning(AppConstants.LoggerWarnPrefix + "There are no migrations to be performed");
+
+            }
 
             if (!_dbContext.Roles.Any())
             {
