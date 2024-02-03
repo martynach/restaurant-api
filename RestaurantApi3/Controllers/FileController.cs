@@ -24,7 +24,7 @@ public class FileController: ControllerBase
         var filePath = $"{rootPath}\\PrivateFiles\\{filename}";
 
         var filesExists = System.IO.File.Exists(filePath);
-        _logger.LogInformation($"{AppConstants.LoggerInformationPrefix}  file directory: {filePath}, fileExists: {filesExists}");
+        _logger.LogWarning($"{AppConstants.LoggerPrefix}  file directory: {filePath}, fileExists: {filesExists}");
 
         if (!filesExists)
         {
@@ -40,7 +40,7 @@ public class FileController: ControllerBase
             return NotFound();
         }
         
-        _logger.LogInformation($"{AppConstants.LoggerInformationPrefix}  file directory: {filePath}, fileExists: {filesExists}, fileType: {fileContentType}");
+        _logger.LogWarning($"{AppConstants.LoggerPrefix}  file directory: {filePath}, fileExists: {filesExists}, fileType: {fileContentType}");
 
         return File(fileContent, fileContentType, filename);
     }
