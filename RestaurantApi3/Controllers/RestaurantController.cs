@@ -25,7 +25,7 @@ public class RestaurantController : ControllerBase
     // [Authorize(Policy = "CreateAtLeast2Restaurants")]
     public ActionResult<PagedResult<Restaurant>> GetAll([FromQuery] RestaurantQuery query)
     {
-        _logger.LogInformation(AppConstants.LoggerPrefix + "Getting all the restaurants");
+        _logger.LogInformation(AppConstants.LoggerInformationPrefix + "Getting all the restaurants");
         var pagedResult = _restaurantService.GetAll(query);
         return Ok(pagedResult);
     }

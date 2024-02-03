@@ -148,6 +148,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseResponseCaching();
+// app.UseStaticFiles(); not needed
+
 
 //does not work - would work for singleton
 // app.Services.GetService<RestaurantSeeder>()!.Seed();
