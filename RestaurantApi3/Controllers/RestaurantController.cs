@@ -21,7 +21,7 @@ public class RestaurantController : ControllerBase
     }
 
     [HttpGet]
-    // [AllowAnonymous]
+    [AllowAnonymous]
     // [Authorize(Policy = "CreateAtLeast2Restaurants")]
     public ActionResult<PagedResult<Restaurant>> GetAll([FromQuery] RestaurantQuery query)
     {
